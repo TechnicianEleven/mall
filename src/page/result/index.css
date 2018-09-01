@@ -1,0 +1,27 @@
+/*
+* @Author: s
+* @Date:   2018-09-01 18:27:48
+* @Last Modified by:   s
+* @Last Modified time: 2018-09-01 18:44:09
+*/
+.page-wrap{
+
+  padding:30px 0;
+  margin-top:20px;
+  background:#fff;
+  text-align: center;
+}
+.result-con{
+  display: none;
+}
+.result-con .result-title{
+  color:#555;
+}
+.result-con .result-content{
+  margin-top:20px;
+}
+.result-con .result-content .link{
+  margin: 0 5px;
+  padding:5px 10px;
+  border:1px solid #ccc;
+}

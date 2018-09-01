@@ -3,10 +3,11 @@
  const htmlWebpackPlugin= require('html-webpack-plugin')
  // 环境变量配置，dev / online
  let WEBPACK_ENV         = process.env.WEBPACK_ENV || 'dev';
- let getHtmlConfig = function(name) {
+ let getHtmlConfig = function(name,title) {
    return {
       template: './src/view/'+name+'.html',
       filename: 'view/'+name+'.html',
+      title: title,
       inject: true,
       hash: true,
       // 需要哪个index.js 上面entry有几个，只要common和index
@@ -16,9 +17,10 @@
  let config={
   entry:{
     // 公共样式
-    common: ['./src/page/common/index','webpack-dev-server/client?http://localhost:8088'],
+    common: './src/page/common/index',
     index: './src/page/index/index',
     login: './src/page/login/index',
+    result: './src/page/result/index',
   },
   output: {
     path: './dist',
@@ -30,14 +32,24 @@
     {
       test: /\.css$/, // 使用extract分离css
       loader: extractTextPlugin.extract('style-loader','css-loader')
-    },    
+    },
     {
-      test: /\.(gif|png|jpg)\??.*$/, // 图片有些 是带参数的图片所以得修改正则
-      loader: 'url-loader?limit=100&name=resource/[name].[ext]'
-    }
+      test: /\.string$/, // 使用extract分离css
+      loader: 'html-loader'
+    },    
+    { test: /\.(gif|png|jpg|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=100&name=resource/[name].[ext]' },
     ]
   }
   ,
+  resolve: {
+    alias : {
+      util: __dirname + '/src/util',
+      page: __dirname + '/src/page',
+      service: __dirname + '/src/service',
+      image: __dirname+ '/src/image',
+      node_modules    : __dirname + '/node_modules',
+    }
+  },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       // 把公共样式加载到每个页面
@@ -47,8 +59,9 @@
     // 分离css
     new extractTextPlugin("css/[name].css"),
     // html模板的处理
-    new htmlWebpackPlugin(getHtmlConfig('index')),
-    new htmlWebpackPlugin(getHtmlConfig('login'))
+    new htmlWebpackPlugin(getHtmlConfig('index','首页')),
+    new htmlWebpackPlugin(getHtmlConfig('login','用户登录')),
+    new htmlWebpackPlugin(getHtmlConfig('result','操作结果')),
   ]
 }
 module.exports=config

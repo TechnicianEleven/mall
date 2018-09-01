@@ -1,0 +1,17 @@
+/*
+* @Author: s
+* @Date:   2018-09-01 11:12:26
+* @Last Modified by:   s
+* @Last Modified time: 2018-09-01 11:18:27
+*/
+.nav-simple{
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #ddd;
+  background:#fff;
+}
+.nav-simple .logo{
+  font-size: 26px;
+  font-weight: bold;
+  color:#c60023;
+}
