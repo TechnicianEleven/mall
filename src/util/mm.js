@@ -61,10 +61,10 @@ let _mm = {
   // 字段验证
   validate: function(value, type) {
 
-     let value =$.trim(value)
+     let v =$.trim(value)
      if ('require' === type) {
           // 支持非空判断
-        return !!value
+        return !!v
      }
      // 手机号验证
      if ('phone' === type) {
@@ -78,7 +78,7 @@ let _mm = {
   // 统一登录处理
   doLogin : function() {
     // 防止url的字符截断，使用encode编码
-    window.location.href = './login.html?redirect='+ encodeURIComponent(window.location.href)
+    window.location.href = './user-login.html?redirect='+ encodeURIComponent(window.location.href)
   },
   // 跳回主页
   goHome: function () {

@@ -16,7 +16,7 @@ let nav={
     })
     //注册点击事件
     $('.js-login').click(function(){
-      window.location.href = './register.html'
+      window.location.href = './user-login.html'
     })
     //点击退出事件
     $('.js-logout').click(function(){
@@ -34,7 +34,7 @@ let nav={
         $('.user.not-login').hide().siblings('.user.login').show()
         .find('.username').text(res.username)
       },function(errMsg){
-          _mm.errorTip(errMsg)
+          // _mm.errorTip(errMsg)
       })
     
   },

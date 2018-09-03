@@ -1,121 +1,26 @@
-webpackJsonp([1],[
-/* 0 */
+webpackJsonp([2],{
+
+/***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	// cats = require('./cats.js')
-
-	// require ('./index.css')
-	// require('page/common/nav-simple/index.js')
-	__webpack_require__(18)
-	__webpack_require__(27)
-	let navSide=__webpack_require__(30)
-
-	let _mm = __webpack_require__(21)
-	navSide.init({
-	  name: 'user-center'
+	/*
+	* @Author: s
+	* @Date:   2018-09-01 18:27:41
+	* @Last Modified by:   s
+	* @Last Modified time: 2018-09-01 18:46:18
+	*/
+	__webpack_require__(34)
+	__webpack_require__(37)
+	let _mm=__webpack_require__(21)
+	$(function(){
+	  let type = _mm.getUrlParam('type') || 'default',
+	  // 根据type参数来修改show的显示
+	  $element=$('.'+type+'-success').show()
 	})
-	// let html= '<div>{{data}}</div>'
-	// let data ={
-	//   data: 123
-	// }
-
-	// console.log(_mm.renderHtml(html,data))
-	// _mm.request({
-	//   url: 'product/list.do?keyword=1',
-	//   success: function(res){
-	//     console.log(res)
-	//   },
-	//   error: function(errMsg){
-	//     console.log(errMsg)
-
-	//   }
-	// })
-	// console.log(_mm.getUrlParam('test'))
-	// console.log(cats)
-	// $('body').html('jquery')
 
 /***/ }),
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(19)
-	let _mm =__webpack_require__(21)
-	let _user=__webpack_require__(25)
-	let _cart =__webpack_require__(26)
-	let nav={
-	  init: function(){
-	    this.bindEvent()
-	    this.loadUserInfo()
-	    this.loadCartCount()
-	    return this
-	  },
-	  bindEvent: function(){
-	    // 登录点击事件
-	    $('.js-login').click(function(){
-	      _mm.doLogin()
-	    })
-	    //注册点击事件
-	    $('.js-login').click(function(){
-	      window.location.href = './register.html'
-	    })
-	    //点击退出事件
-	    $('.js-logout').click(function(){
-	      _user.logout(function(res){
-	         window.location.reload()
-	      },function(errMsg){
-	          _mm.errorTips(errMsg)
-	      })
-	    })
-
-	  },
-	  // 加载用户信息
-	  loadUserInfo: function(){
-	    _user.checkLogin(function(res){
-	        $('.user.not-login').hide().siblings('.user.login').show()
-	        .find('.username').text(res.username)
-	      },function(errMsg){
-	          // _mm.errorTip(errMsg)
-	      })
-	    
-	  },
-	  // 加载用户数量
-	  loadCartCount:function(){
-	    _cart.getCartCount(function(res){
-	       $('.nav .cart-count').text(res|| 0)
-
-	      },function(errMsg){
-	          $('nav .cart-count').text(0)
-	      })
-	  }
-	}
-	module.exports = nav.init()
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 20 */,
-/* 21 */
+/***/ 21:
 /***/ (function(module, exports, __webpack_require__) {
 
 	const config = {
@@ -209,7 +114,8 @@ webpackJsonp([1],[
 	module.exports = _mm
 
 /***/ }),
-/* 22 */
+
+/***/ 22:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
@@ -236,7 +142,8 @@ webpackJsonp([1],[
 
 
 /***/ }),
-/* 23 */
+
+/***/ 23:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
@@ -665,7 +572,8 @@ webpackJsonp([1],[
 
 
 /***/ }),
-/* 24 */
+
+/***/ 24:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
@@ -1012,174 +920,26 @@ webpackJsonp([1],[
 
 
 /***/ }),
-/* 25 */
+
+/***/ 34:
 /***/ (function(module, exports, __webpack_require__) {
 
-	let _mm=__webpack_require__(21)
-	let _user ={
-	  //用户登录
-	  login:function(userinfo,resolve,reject){
-	    _mm.request({
-	      url: _mm.getServerUrl('/user/login.do'),
-	      data: userinfo,
-	      method: 'POST',
-	      success: resolve,
-	      error: reject
-	    })
-
-	  },  //检查登录状态
-	  checkLogin:function(resolve,reject){
-	    _mm.request({
-	      url: _mm.getServerUrl('/user/get_user_info.do'),
-	      method: 'POST',
-	      success: resolve,
-	      error: reject
-	    })
-
-	  },
-	  // 登出
-	  logout:function(resolve,reject){
-	    _mm.request({
-	      url: _mm.getServerUrl('/user/logout.do'),
-	      method: 'POST',
-	      success : resolve,
-	      error : reject
-	    })
-	  }
-	}
-	module.exports=_user
+	__webpack_require__(35)
 
 /***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
 
-	let _mm=__webpack_require__(21)
-	let _cart = {
-	  getCartCount: function(resolve, reject){
-	    _mm.request({
-	      url: _mm.getServerUrl('/cart/get_cart_product_count.do'),
-	      success : resolve,
-	      error  : reject
-	    })
-	  }
-	}
-	module.exports = _cart
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	__webpack_require__(28)
-	let _mm = __webpack_require__(21)
-	// 通用页面头部
-	let header= {
-	  init: function(){
-	    this.bindEvent()
-	  },
-	  onLoad: function() {
-	    let keyword = _mm.getUrlParam('keyword');
-	    if(keyword){
-	      $('#search-input').val(keyword)
-	    }
-	  },
-	  bindEvent: function(){
-	    let _this =this
-	    // 点击搜索按钮的时候做搜索提交
-	     $("#search-btn").click(function(){
-	        _this.searchSubmit();
-	     })
-	     // 输入回车后也是做提交
-	     $("#search-input").keyup(function(e){
-	        if(e.keyCode === 13) {
-	            _this.searchSubmit();
-	        }
-
-	     })
-	     // $("#search-input").keyup(funciton(e){
-	 
-	     // })
-	  },
-	  // 搜索的提交
-	  searchSubmit: function(){
-	    let keyword = $.trim($('#search-input').val())
-	    // 如果提交的有keyword跳转到list，为空返回首页
-	    if(keyword) {
-	       window.location.href='./list.html?keyword='+keyword
-	    }else{
-	      _mm.goHome()
-	    }
-	  }
-
-	}
-	header.init()
-
-/***/ }),
-/* 28 */
+/***/ 35:
 /***/ (function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 29 */,
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
 
-	__webpack_require__(31)
-	let _mm =__webpack_require__(21)
-	let templateIndex =__webpack_require__(33)
-	// 侧边导航
-	let navSide={
-	  option: {
-	    name: '',
-	    navList:[
-	      {name: 'user-center',desc: '个人中心',href:'./user-center.html'},
-	       {name: 'order-list',desc: '我的订单',href:'./order-list.html'},
-	       {name: 'pass-update',desc: '修改密码',href:'./pass-update.html'},
-	        {name: 'about',desc: '关于mall',href:'./about.html'}
-	    ]
-	    // navList: [
-	    //   {name: 'user-center',desc: '个人中心'，href:'./user-center.html'},
-	    //   {name: 'order-list',desc: '我的订单'，href:'./order-list.html'},
-	    //   {name: 'pass-update',desc: '修改密码'，href:'./pass-update.html'},
-	    //   {name: 'about',desc: '关于mall'，href:'./about.html'}
-	    // ]
-	  },
-	  init: function(option){
-	    $.extend(this.option,option)
-	    this.renderNav()
-	    // return this
-	  },
-	  // 渲染导航菜单
-	  renderNav: function(){
-	     for( let i=0,iLength=this.option.navList.length;i<iLength;i++ ){
-	        if(this.option.navList[i].name === this.option.name){
-	          this.option.navList[i].isActive =true
-	        }
-	     }
-	     // 渲染list数据
-	     let navHtml=_mm.renderHtml(templateIndex,{
-	      navList: this.option.navList
-	     })
-	     // 把html放入容器
-	     $('.nav-side').html(navHtml)
-	     // console.log(navHtml)
-	  }
-
-	}
-	module.exports=navSide
-
-/***/ }),
-/* 31 */
+/***/ 37:
 /***/ (function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 32 */,
-/* 33 */
-/***/ (function(module, exports) {
-
-	module.exports = "{{#navList}}\r\n{{#isActive}}\r\n<li class=\"nav-item active\">\r\n{{/isActive}}\r\n{{^isActive}}\r\n<li class=\"nav-item\">\r\n{{/isActive}}\r\n    <a class=\"link\" href=\"{{href}}\">{{desc}}</a>\r\n</li>\r\n{{/navList}} \r\n";
 
 /***/ })
-]);
+
+});
