@@ -51,11 +51,11 @@ let _mm = {
     return result
   },
   // 成功提示
-  successTiops: function(msg) {
+  successTips: function(msg) {
     alert(msg || '操作成功' )
   },
   // 错误提示
-  errorTip: function(msg) {
+  errorTips: function(msg) {
    alert(msg || '哪里不对了')
   },
   // 字段验证

@@ -12,123 +12,97 @@ let formError ={
   }
 }
 let page={
+  // 内部缓存变量
+  data:{
+    username: '',
+    question: '',
+    answer: '',
+    token: '',
+  },
   init:function(){
+    // 进来需要显示第一个页面
+    this.onload();
     this.bindEvent()
+  },
+  onload:function(){
+    this.loadStepUsername()
   },
   bindEvent:function(){
     let _this= this
-    // 验证username
-    $("#username").blur(function(){
-      let username =$.trim($(this).val())
-      // 没有名字就返回
-      if(!username){
-        return
+    // 登录按钮点击
+    $("#submit-username").click(function(event) {
+      let username =$.trim($('#username').val()) 
+      if(username){
+        _user.getQuestion(username,function(res){
+          _this.data.username= username
+          _this.data.question =res
+          _this.loadStepQuestion()
+        },
+          function(errMsg){
+            formError.show(errMsg)
+          })
+      }else{
+        formError.show('请输入用户名')
       }
-      // 异步验证用户名是否存在
-      _user.checkUsername(username,function(res){
-        // 隐藏错误显示
-        formError.hide()
-
-      },
-        function(errMsg){
-           formError.show(errMsg)
-        })
-    })
-    // 注册按钮点击
-    $("#submit").click(function(event) {
-      _this.submit()
-    });
-    // 如果按下回车，也提交
-    $('.user-content').keyup(function(e) {
-      if(e.keyCode === 13){
-        _this.submit()
+    });   
+    // 输入密码提示问题的按钮点击 
+    $("#submit-question").click(function(event) {
+      let answer =$.trim($('#answer').val()) 
+      if(answer){
+        // 检查密码提示问题答案
+        _user.checkAnswer({
+          username: _this.data.username,
+          question: _this.data.question,
+          answer: answer
+        },function(res){
+           _this.data.anser =answer
+           _this.data.token =res
+            _this.loadStepPassword()
+        },
+          function(errMsg){
+             formError.show(errMsg)
+          })
+      }else{
+        formError.show('问题答案')
       }
     });
-  },
-  // 提交表单
-  submit: function(){
-    let formData={
-      username: $.trim($('#username').val()),
-      password: $.trim($('#password').val()),
-      passwordConfirm: $.trim($('#passwordConfirm').val()),
-      phone: $.trim($('#phone').val()),
-      email: $.trim($('#email').val()),
-      question: $.trim($('#question').val()),
-      answer: $.trim($('#answer').val()),
-    },
-    validateResult =this.formValidate(formData)
-    // 验证成功
-    if (validateResult.status){
-      _user.register(formData,function(res){
-          window.location.href = './result.html?type=register'
-      },function(errMsg){
-          formError.show(errMsg)
-      })
-    }else{
-      // 错误提示
-        formError.show(validateResult.msg)
-    }
-  },
-  // 验证表单
-  formValidate:function(formData){
-    let result ={
-      status : false,
-      msg: ''
-    }
-    // 验证用户名不能为空
-    if(!_mm.validate(formData.username,'require')){
-      result.msg= '用户名不能为空'
-      return result
-    }  
-    // 验证密码不能为空  
-    if(!_mm.validate(formData.password,'require')){
-      result.msg= '密码不能为空'
-      return result
-    } 
-     // 验证密码不能为空  
-    if(!_mm.validate(formData.question,'require')){
-      result.msg= '提示问题不能为空'
-      return result
-    }  
-     // 验证答案不能为空
-    if(!_mm.validate(formData.answer,'require')){
-      result.msg= '答案不能为空'
-      return result
-    } 
-    // 验证密码长度不能少于6位   
-    if(formData.password.length<6){
-      result.msg= '密码长度不能少于6位'
-      return result
-    }
-    // 验证两次输入密码是否一致  
-    if(formData.password !== formData.passwordConfirm){
-      result.msg= '两次输入密码不一致'
-      return result
-    }
-    // 验证手机号
-    if(!_mm.validate(formData.phone,'phone')){
-      result.msg= '手机号格式不合符规范'
-      return result
-    }
-    if(!_mm.validate(formData.email,'email')){
-      result.msg= '邮箱格式不符合规范'
-      return result
-    }
+    // 输入新密码后的按钮点击   
+    $("#submit-password").click(function(event) {
+      let password =$.trim($('#password').val()) 
+      if(password && password.length >= 6){
+        // 密码不为空
+        _user.resetPassword({
+          username: _this.data.username,
+          passwordNew: password,
+          forgetToken: _this.data.token
+        },function(res){
+          window.location.href ='./result.html?type=pass-reset'
+        },
+          function(errMsg){
+             formError.show(errMsg)
+          })
+      }else{
+        formError.show('请输入不少于6位新密码')
+      }
+    });
 
-    // if (！_mm.validate(formData.username,'require')){
-    //   result.msg = '用户名不能为空'
-    //   return result
-    // }
-    // if (！_mm.validate(formData.password,'require')) {
-    //   result.msg = '密码不能为空'
-    //   return result
-    // };
-    result.status = true
-    result.msg ='验证通过'
-    return result
-  }
+  },
+  // 加载输入用户名的第一步
+  loadStepUsername: function(){
+    $('.step-username').show()
+  }, 
+  // 加载输入密码提示问题答案的第一步
+  loadStepQuestion: function(){
+    let _this=this
+    formError.hide()
+    $('.step-username').hide().siblings('.step-question').show().find('.question').text(_this.data.question)
+  }, 
+  // 加载输入password的第一步
+  loadStepPassword: function(){
+    formError.hide()
+    $('.step-question').hide().siblings('.step-password').show()
+  },
 }
-// 非常重要等jq加载完成再执行
 $(function(){
   page.init()
 })

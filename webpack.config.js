@@ -22,6 +22,9 @@
     'user-login': './src/page/user-login/index',
     'user-register': './src/page/user-register/index',
     'user-pass-reset': './src/page/user-pass-reset/index',
+    'user-center': './src/page/user-center/index',
+    'user-center-update': './src/page/user-center-update/index',
+    'user-pass-update': './src/page/user-pass-update/index',
     result: './src/page/result/index',
   },
   output: {
@@ -66,6 +69,9 @@
     new htmlWebpackPlugin(getHtmlConfig('result','操作结果')),
     new htmlWebpackPlugin(getHtmlConfig('user-register','用户注册')),
     new htmlWebpackPlugin(getHtmlConfig('user-pass-reset','找回密码')),
+    new htmlWebpackPlugin(getHtmlConfig('user-center','个人中心')),
+    new htmlWebpackPlugin(getHtmlConfig('user-center-update','更新信息')),
+    new htmlWebpackPlugin(getHtmlConfig('user-pass-update','修改密码')),
   ]
 }
 module.exports=config
