@@ -31,6 +31,8 @@ let page={
   },
   bindEvent:function(){
     let _this=this
+
+
     $(document).on('click','.btn-submit',function(){
        let userInfo={
         phone: $.trim($('#phone').val()),

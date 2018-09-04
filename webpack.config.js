@@ -19,6 +19,7 @@
     // 公共样式
     common: './src/page/common/index',
     index: './src/page/index/index',
+    list: './src/page/list/index',
     'user-login': './src/page/user-login/index',
     'user-register': './src/page/user-register/index',
     'user-pass-reset': './src/page/user-pass-reset/index',
@@ -65,6 +66,7 @@
     new extractTextPlugin("css/[name].css"),
     // html模板的处理
     new htmlWebpackPlugin(getHtmlConfig('index','首页')),
+    new htmlWebpackPlugin(getHtmlConfig('list','商品列表')),
     new htmlWebpackPlugin(getHtmlConfig('user-login','用户登录')),
     new htmlWebpackPlugin(getHtmlConfig('result','操作结果')),
     new htmlWebpackPlugin(getHtmlConfig('user-register','用户注册')),

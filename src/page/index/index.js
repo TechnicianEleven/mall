@@ -5,10 +5,26 @@
 require('page/common/nav/index.js')
 require('page/common/header/index.js')
 let navSide=require('page/common/nav-side/index.js')
-
+require("./index.css")
+require("util/slider/index.js")
 let _mm = require('util/mm.js')
-navSide.init({
+let templateBanner =require('./index.string')
+$(function(){
+  let bannerHtml = _mm.renderHtml(templateBanner)
+  $('.banner-con').html(bannerHtml)
+  navSide.init({
   name: 'user-center'
+})
+ let $slider= $('.banner').unslider({
+    dots: true
+  })
+ // 前一张后一张操作事件
+ $('.banner-con .banner-arrow').click(function(){
+  let forward = $(this).hasClass('prev')? 'prev': 'next'
+    // console.log( $slider.data('unslider'))
+    $slider.data('unslider')[forward]();
+ })
+
 })
 // let html= '<div>{{data}}</div>'
 // let data ={

@@ -4,6 +4,7 @@ let _mm = require('util/mm.js')
 let header= {
   init: function(){
     this.bindEvent()
+    this.onLoad()
   },
   onLoad: function() {
     let keyword = _mm.getUrlParam('keyword');
