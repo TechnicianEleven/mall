@@ -20,6 +20,8 @@
     common: './src/page/common/index',
     index: './src/page/index/index',
     list: './src/page/list/index',
+    detail: './src/page/detail/index',
+    cart: './src/page/cart/index',
     'user-login': './src/page/user-login/index',
     'user-register': './src/page/user-register/index',
     'user-pass-reset': './src/page/user-pass-reset/index',
@@ -67,6 +69,8 @@
     // html模板的处理
     new htmlWebpackPlugin(getHtmlConfig('index','首页')),
     new htmlWebpackPlugin(getHtmlConfig('list','商品列表')),
+    new htmlWebpackPlugin(getHtmlConfig('detail','商品详情')),
+    new htmlWebpackPlugin(getHtmlConfig('cart','购物车')),
     new htmlWebpackPlugin(getHtmlConfig('user-login','用户登录')),
     new htmlWebpackPlugin(getHtmlConfig('result','操作结果')),
     new htmlWebpackPlugin(getHtmlConfig('user-register','用户注册')),
@@ -74,6 +78,16 @@
     new htmlWebpackPlugin(getHtmlConfig('user-center','个人中心')),
     new htmlWebpackPlugin(getHtmlConfig('user-center-update','更新信息')),
     new htmlWebpackPlugin(getHtmlConfig('user-pass-update','修改密码')),
-  ]
+  ],
+    devServer: {
+        port: 8088,
+        inline: true,
+        proxy : {
+            '**/*.do' : {
+                target: 'http://test.happymmall.com',
+                changeOrigin : true
+            }
+        }
+    }
 }
 module.exports=config

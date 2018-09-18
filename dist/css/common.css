@@ -29,6 +29,23 @@ input[type='checkbox']{
   /*可以清楚浮动*/
   overflow: hidden;
 }
+/*panel*/
+.panel{
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+.panel .panel-title{
+  padding: 10px;
+  font-size: 14px;
+  color: #666;
+  font-weight: bold;
+  border-bottom: 1px solid #eee;
+}
+.panel .panel-body{
+  padding: 10px;
+  overflow: hidden;
+}
 /*大屏幕的适配*/
 /*用js给css加class可以适应ie，而媒体查询只能使用ie8+*/
 .large .w{

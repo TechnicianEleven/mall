@@ -11,6 +11,19 @@ let _product ={
     })
 
   },
+  // 獲取商品詳細信息
+  getProductDetail:function(productId,resolve,reject){
+    _mm.request({
+      url: _mm.getServerUrl('/product/detail.do'),
+      data: {
+        productId :productId
+      },
+      method: 'POST',
+      success: resolve,
+      error: reject
+    })
+
+  },
   
 }
 module.exports=_product
